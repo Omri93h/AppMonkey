@@ -29,3 +29,20 @@ export async function convertDocxToPdf(file) {
   const blob = await res.blob();
   return { blob, filename };
 }
+
+
+export async function convertPdfToText(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const res = await fetch(import.meta.env.VITE_API_URL + '/convert/pdf-to-text', {
+    method: 'POST',
+    body: formData,
+  });
+  if (!res.ok) throw new Error('PDF→TXT conversion failed');
+  const disp = res.headers.get('content-disposition') || '';
+  let filename = file.name.replace(/\.pdf$/i, '.txt');
+  const m = disp.match(/filename="?(.+)"?/);
+  if (m) filename = m[1];
+  const blob = await res.blob();
+  return { blob, filename };
+}

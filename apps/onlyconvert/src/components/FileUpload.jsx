@@ -41,10 +41,10 @@ export default function FileUpload({ convertFn, outputExt }) {
       const filename = 'OnlyConvert-com-' + index + outputExt;
       setNames(n => ({ ...n, [file.name]: filename }));
       setStatus(s => ({ ...s, [file.name]: 'success' }));
-      notifySuccess(file.name + ' -> ' + filename);
+      notifySuccess(file.name + ' - Converted successfully as\n "' + filename + '"');
     } catch {
       setStatus(s => ({ ...s, [file.name]: 'error' }));
-      notifyError(file.name + ' failed to convert');
+      notifyError(file.name + ' Failed o convert');
     }
   };
 
