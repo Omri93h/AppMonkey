@@ -1,36 +1,37 @@
-// core-ui/src/hooks/useConversion.js
-const API = import.meta.env.VITE_API_URL;
+import { useState } from 'react';
 
-async function extractFilename(res) {
-  const disp = res.headers.get('content-disposition') || '';
-  const match = /filename="?(.+?)"?($|;)/i.exec(disp);
-  return match ? match[1] : '';
-}
+export default function useConversion(endpoint) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [result, setResult] = useState(null);
 
-export async function convertPdfToDocx(file) {
-  const form = new FormData();
-  form.append('file', file);
-  const res = await fetch(\`\${API}/convert/pdf-to-docx\`, { method: 'POST', body: form });
-  if (!res.ok) throw new Error('Conversion failed');
-  const blob = await res.blob();
-  const ext = '.docx';
-  let filename = await extractFilename(res);
-  if (!filename.toLowerCase().endsWith(ext)) {
-    filename = file.name.replace(/\\.pdf$/i, ext);
+  async function convert(file) {
+    setLoading(true);
+    setError(null);
+    setResult(null);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const url = import.meta.env.VITE_API_URL + '/convert/' + endpoint;
+      const response = await fetch(url, { method: 'POST', body: formData });
+      if (!response.ok) {
+        const body = await response.json();
+        throw new Error(body.detail || 'Conversion failed');
+      }
+      const blob = await response.blob();
+      const disposition = response.headers.get('Content-Disposition');
+      const match = disposition && disposition.match(/filename="([^"]+)"/);
+      const filename = match ? match[1] : 'result';
+      const urlObject = URL.createObjectURL(blob);
+      setResult({ url: urlObject, filename });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
-  return { blob, filename };
-}
 
-export async function convertDocxToPdf(file) {
-  const form = new FormData();
-  form.append('file', file);
-  const res = await fetch(\`\${API}/convert/docx-to-pdf\`, { method: 'POST', body: form });
-  if (!res.ok) throw new Error('Conversion failed');
-  const blob = await res.blob();
-  const ext = '.pdf';
-  let filename = await extractFilename(res);
-  if (!filename.toLowerCase().endsWith(ext)) {
-    filename = file.name.replace(/\\.docx$/i, ext);
-  }
-  return { blob, filename };
+  return { convert, loading, error, result };
 }
