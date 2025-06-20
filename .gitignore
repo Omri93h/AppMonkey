@@ -1,0 +1,14 @@
+# Python cache
+**/__pycache__/
+*.py[cod]
+
+# Virtual environment
+backend/venv/
+
+# Editor & OS files
+.vscode/
+.DS_Store
+
+# Node modules & lock
+node_modules/
+package-lock.json

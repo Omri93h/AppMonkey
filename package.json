@@ -1,0 +1,21 @@
+{
+  "name": "AppMonkey",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "apps/pdf-to-docx-converter",
+    "apps/favicon-test",
+    "apps/my-new-converter",
+    "apps/pdf-to-docx",
+    "apps/test-ads",
+    "apps/docx-to-pdf",
+    "apps/onlyconvert"
+  ],
+  "scripts": {
+    "bootstrap": "npm install"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
