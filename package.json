@@ -1,6 +1,6 @@
 {
   "name": "AppMonkey",
-  "private": true,
+  "private": "true",
   "version": "0.1.0",
   "workspaces": [
     "packages/*",
@@ -14,8 +14,8 @@
     "apps/onlyconvert"
   ],
   "scripts": {
-    "bootstrap": "npm install"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+    "bootstrap": "npm install",
+    "build:onlyconvert": "cd apps/onlyconvert && npm install && npm run build",
+    "deploy:onlyconvert": "vercel --prod --cwd apps/onlyconvert"
+  }
 }

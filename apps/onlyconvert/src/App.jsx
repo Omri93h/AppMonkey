@@ -9,7 +9,6 @@ import NotificationProvider from './components/NotificationProvider';
 import LoadingSpinner from 'core-ui/components/LoadingSpinner';
 import { convertPdfToDocx, convertDocxToPdf, convertPdfToText } from 'core-ui/hooks/useConversion';
 
-// Static home page
 function Home() {
   return (
     <main className="p-4 flex flex-col items-center">
@@ -19,7 +18,6 @@ function Home() {
   );
 }
 
-// Lazy-loaded pages
 const FileUpload = lazy(() => import('./components/FileUpload'));
 const Help = lazy(() => import('./components/Help'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
@@ -27,6 +25,19 @@ const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const CookiePolicy = lazy(() => import('./components/CookiePolicy'));
 
 export default function App() {
+  const generalLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/help', label: 'Help' },
+    { to: '/privacy', label: 'Privacy Policy' },
+    { to: '/terms', label: 'Terms of Service' },
+    { to: '/cookies', label: 'Cookie Policy' },
+  ];
+  const converterLinks = [
+    { to: '/pdf-to-docx', label: 'PDF to DOCX' },
+    { to: '/docx-to-pdf', label: 'DOCX to PDF' },
+    { to: '/pdf-to-text', label: 'PDF to TXT' },
+  ];
+
   return (
     <NotificationProvider>
       <SEO title={import.meta.env.VITE_APP_TITLE} description={import.meta.env.VITE_APP_DESC} />
@@ -34,16 +45,30 @@ export default function App() {
       <BrowserRouter>
         <div className="flex flex-col min-h-screen">
           <Header />
+          {/* General Links */}
+          <nav className="flex justify-center items-center divide-x divide-gray-300 my-2">
+            {generalLinks.map(link => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) => isActive ? 'font-bold px-6' : 'px-6'}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
           <AdsBanner />
-          <nav className="flex justify-center space-x-4 my-4">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/pdf-to-docx">PDF→DOCX</NavLink>
-            <NavLink to="/docx-to-pdf">DOCX→PDF</NavLink>
-            <NavLink to="/pdf-to-text">PDF→TXT</NavLink>
-            <NavLink to="/help">Help</NavLink>
-            <NavLink to="/privacy">Privacy</NavLink>
-            <NavLink to="/terms">Terms</NavLink>
-            <NavLink to="/cookies">Cookies</NavLink>
+          {/* Converter Links */}
+          <nav className="flex justify-center items-center divide-x divide-gray-300 my-2">
+            {converterLinks.map(link => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) => isActive ? 'font-bold px-6' : 'px-6'}
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </nav>
           <div className="flex-1 min-h-0">
             <Suspense fallback={<LoadingSpinner />}>
