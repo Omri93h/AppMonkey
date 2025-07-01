@@ -4,12 +4,12 @@
     {
       "src": "apps/onlyconvert/package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "config": { "distDir": "apps/onlyconvert/dist" }
     }
   ],
   "routes": [
-    { "src": "/robots.txt", "dest": "/robots.txt" },
+    { "src": "/robots.txt", "dest": "/apps/onlyconvert/dist/robots.txt" },
     { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "^/(.*)", "dest": "/apps/onlyconvert/dist/index.html" }
   ]
 }
