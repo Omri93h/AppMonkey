@@ -1,0 +1,155 @@
+HTTP/1.1 200 OK
+date: Fri, 20 Jun 2025 16:27:50 GMT
+server: uvicorn
+content-type: text/plain; charset=utf-8
+accept-ranges: bytes
+content-disposition: attachment; filename="OnlyConvert-com-sample.txt"
+content-length: 3026
+last-modified: Fri, 20 Jun 2025 16:27:50 GMT
+etag: "5c57396ca149906da12b6cd6c512c0c1"
+access-control-allow-origin: *
+
+💼 LinkedIn:
+🎂Date of Birth: February 13, 1993
+
+🌐GitHub:
+
+📍City: Holon, Israel
+
+📧Email:
+📞Mobile: 0526-999-779
+
+Omri Haham
+
+Results-driven Software Engineer with strong expertise in developing automated tools, code validation systems, and 
+testing platforms using Python and C. Skilled in software integration, process optimization, and complex problem-
+solving. Proven success in leading technical projects and implementing solutions that enhance productivity, 
+streamline workflows, and ensure code quality. 
+
+SKILLS 
+Coding:
+•
+•
+•
+
+C , C++, C#
+Python
+Java
+
+Frontend:
+•
+•
+•
+
+HTML, JS & CSS
+
+React
+Angular
+
+Backend:
+•
+•
+
+NodeJS
+Flask
+
+MySQL, PostgreSQL, MongoDB 
+
+IDE & Databases:
+
+•
+
+Environments:
+Visual Studio, PyCharm, 
+VScode.
+
+Databases:
+
+•
+
+EXPERIENCE
+
+2021-Today | Elbit Systems | Automation tests developer -> Software  Engineer & Tools Developer 
+
+•
+
+•
+
+•
+
+platform with PyTest. After that, continued at project bugs solving (for the Unmanned Air Vehicle itself). 
+
+Started as an Automated tests developer - developed 
+Elbit’s Unmanned-Air-Vehicle main auto-testing
+
+analyzing over 500,000 C-code lines to generate SDD, Traceability, and Diagrams in PDF/DOCX formats. * 
+outputs diagrams such as: activity diagrams, function call-tree diagrams, component relations, sources-flow, etc... 
+
+“Autodocs” – an automated documentation tool for UAV 
+systems using Python and PyQt, parsing and
+
+designed for writing and managing code for UAV embedded components. 
+
+•
+
+“CoVa” – Code Validators: Created CoVa, a C-code 
+validation tool that runs multiple standalone validators to
+ensure code quality on components, which became a crucial build machine operation. The tool generates an 
+HTML report detailing validation results while integrated with our DevOps pipeline (Jenkins) 
+
+• Developed and maintain “FrameMaker” – a Python-
+based code-generation tool with a Tkinter GUI,
+
+2019-2021 | Shmoogle (A side project of my lecturer) | Front-End coding
+
+•
+•
+•
+•
+
+Selected with one friend to join my 
+lecturer developing team out of all 3rd 
+year students Went through a full 
+Microsoft Accelerator.
+
+I was assign to create an image search page, using 
+
+EDUCATION
+2018 – 2022 | Software Engineering (BSc) | Shenkar College 
+•
+
+Relevant courses: Data Structures and Algorithms, 
+Operating Systems, Object-Oriented Programming,
+
+Software Design Patterns, Database Systems, Embedded Systems and more. 
+
+•
+
+Final Project featured at “Jerusalem Post”:
+
+ENTERPERNUERSHIP
+2019-2022 | My Crypto-currency Analysis 
+Signals Bot
+I developed an automated Crypto-currency analysis 
+software with Python,
+and integrated signals and results to a telegram 
+channel via API, using
+Amazon AWS (Linux Ubuntu Server), PUTTY & 
+FileZilla
+
+MILITARY SERVICE
+2011-2014 | Search & Rescue:
+Commander-> Sergeant -> CSM
+
+Commander-> Sergeant-> Sergeant major (פ"סר).
+Currently a reservist (once a year)
+
+Want to know 
+
+https://qr.ae/pv4l6X
+
+and
+
+https://qr.ae/pv4lzp
+
+
