@@ -1,37 +1,22 @@
-import { useState } from 'react';
+import axios from 'axios';
 
-export default function useConversion(endpoint) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [result, setResult] = useState(null);
+export async function convertPdfToDocx(file) {
+  const form = new FormData();
+  form.append('file', file);
+  const { data } = await axios.post('/api/pdf-to-docx', form, { responseType: 'blob' });
+  return new File([data], file.name.replace(/\\.pdf$/i, '.docx'), { type: data.type });
+}
 
-  async function convert(file) {
-    setLoading(true);
-    setError(null);
-    setResult(null);
+export async function convertDocxToPdf(file) {
+  const form = new FormData();
+  form.append('file', file);
+  const { data } = await axios.post('/api/docx-to-pdf', form, { responseType: 'blob' });
+  return new File([data], file.name.replace(/\\.docx$/i, '.pdf'), { type: data.type });
+}
 
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const url = import.meta.env.VITE_API_URL + '/convert/' + endpoint;
-      const response = await fetch(url, { method: 'POST', body: formData });
-      if (!response.ok) {
-        const body = await response.json();
-        throw new Error(body.detail || 'Conversion failed');
-      }
-      const blob = await response.blob();
-      const disposition = response.headers.get('Content-Disposition');
-      const match = disposition && disposition.match(/filename="([^"]+)"/);
-      const filename = match ? match[1] : 'result';
-      const urlObject = URL.createObjectURL(blob);
-      setResult({ url: urlObject, filename });
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  return { convert, loading, error, result };
+export async function convertPdfToText(file) {
+  const form = new FormData();
+  form.append('file', file);
+  const { data } = await axios.post('/api/pdf-to-text', form, { responseType: 'json' });
+  return data.text;
 }

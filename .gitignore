@@ -12,3 +12,4 @@ backend/venv/
 # Node modules & lock
 node_modules/
 package-lock.json
+.vercel

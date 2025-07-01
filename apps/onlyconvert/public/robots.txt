@@ -1,4 +1,3 @@
 User-agent: *
-Disallow:
-
-Sitemap: /sitemap.xml
+Allow: /
+Sitemap: https://onlyconvert.com/sitemap.xml
