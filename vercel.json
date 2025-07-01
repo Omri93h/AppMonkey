@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/robots\\.txt", "dest": "/apps/onlyconvert/dist/robots.txt" },
+    { "handle": "filesystem" },
+    { "src": "/.*",       "dest": "/apps/onlyconvert/dist/index.html" }
+  ]
+}
