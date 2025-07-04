@@ -1,10 +1,36 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-const AdsBanner = () => (
-  <div className="w-full bg-gray-100 text-center py-2 text-sm text-gray-600 mb-4">
-    {/* Ad placeholder – replace with your ad network code */}
-    Your Ad Here
-  </div>
-);
+const contentRoutes = ['/', '/pdf-to-docx', '/docx-to-pdf', '/pdf-to-text'];
 
-export default AdsBanner;
+export default function AdsBanner() {
+  const { pathname } = useLocation();
+  const client = import.meta.env.VITE_ADS_CLIENT;
+  const slot = import.meta.env.VITE_ADS_SLOT;
+
+  // show only on specified routes and when env vars are set
+  if (!contentRoutes.includes(pathname) || !client || !slot) {
+    return null;
+  }
+
+  return (
+    <>
+      <script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`}
+        crossOrigin="anonymous"
+      ></script>
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client={client}
+        data-ad-slot={slot}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+      <script>
+        {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+      </script>
+    </>
+  );
+}

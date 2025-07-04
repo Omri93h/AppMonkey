@@ -11,7 +11,8 @@
     "apps/pdf-to-docx",
     "apps/test-ads",
     "apps/docx-to-pdf",
-    "apps/onlyconvert"
+    "apps/onlyconvert",
+    "apps/my-new-app"
   ],
   "scripts": {
     "bootstrap": "npm install",

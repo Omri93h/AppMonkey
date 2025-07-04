@@ -1,71 +1,31 @@
 #!/usr/bin/env node
-const { Command } = require('commander');
 const fs = require('fs-extra');
 const path = require('path');
-const { execSync } = require('child_process');
 
-const rootPkg = path.join(process.cwd(), 'package.json');
+// parse arguments manually
+const args = process.argv.slice(2);
+const [appDir, appName] = args;
 
-function replacePlaceholders(dir, replacements) {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) replacePlaceholders(fullPath, replacements);
-    else if (entry.isFile() && entry.name !== 'favicon.png') {
-      let content = fs.readFileSync(fullPath, 'utf8');
-      for (const [key, value] of Object.entries(replacements)) {
-        content = content.split(key).join(value);
-      }
-      fs.writeFileSync(fullPath, content);
-    }
-  }
+if (!appDir || !appName) {
+  console.error('Usage: create-app <app-dir> "<app-name>"');
+  process.exit(1);
 }
 
-const program = new Command();
+const templateDir = path.resolve(__dirname, 'template');
+const targetDir   = path.resolve(process.cwd(), 'apps', appDir);
 
-program
-  .name('create-app')
-  .description('Generate a new AppMonkey app from template')
-  .arguments('<dir>')
-  .option('-n, --name <displayName>', 'Display name/title')
-  .action((dir, options) => {
-    const templateDir = path.join(__dirname, 'template');
-    const targetDir = path.join(process.cwd(), 'apps', dir);
-    const displayName = options.name || dir;
-
-    if (fs.existsSync(targetDir)) {
-      console.error('Directory apps/' + dir + ' already exists');
-      process.exit(1);
-    }
-
-    // 1) Copy template
-    fs.copySync(templateDir, targetDir);
-
-    // Explicitly copy favicon as binary to avoid corruption
-    fs.copyFileSync(
-      path.join(templateDir, 'public/favicon.png'),
-      path.join(targetDir, 'public/favicon.png')
-    );
-
-    // 2) Replace placeholders (excluding favicon.png)
-    replacePlaceholders(targetDir, {
-      '__APP_NAME__': displayName,
-      '__APP_DIR__': dir
-    });
-
-    // 3) Patch root package.json workspaces
-    const pkg = fs.readJSONSync(rootPkg);
-    const ws = new Set(pkg.workspaces);
-    ws.add(`apps/${dir}`);
-    pkg.workspaces = Array.from(ws);
-    fs.writeJSONSync(rootPkg, pkg, { spaces: 2 });
-    console.log(`Added apps/${dir} to root workspaces`);
-
-    // 4) Install deps
-    console.log('Installing dependencies...');
-    execSync('npm install', { stdio: 'inherit' });
-
-    console.log('Done! cd apps/' + dir + ' && npm run dev');
-  });
-
-program.parse(process.argv);
+(async function() {
+  try {
+    await fs.copy(templateDir, targetDir);
+    const pkgPath = path.join(targetDir, 'package.json');
+    const pkg     = await fs.readJson(pkgPath);
+    pkg.name        = appDir;
+    pkg.description = appName;
+    await fs.writeJson(pkgPath, pkg, { spaces: 2, EOL: '\n' });
+    console.log('✔ Created app "' + appName + '" at apps/' + appDir);
+    process.exit(0);
+  } catch (err) {
+    console.error('✖ Failed to create app "' + appName + '":', err);
+    process.exit(1);
+  }
+})();
