@@ -5,13 +5,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "predev": "rm -rf src/core-ui && cp -R ../../../packages/core-ui/src src/core-ui",
+    "dev": "npm run predev && vite",
+    "prebuild": "npm run predev",
+    "build": "npm run prebuild && vite build"
   },
   "dependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "core-ui": "file:../../packages/core-ui"
+    "core-ui": "file:../../../packages/core-ui"
   },
   "devDependencies": {
     "vite": "^4.0.0",
